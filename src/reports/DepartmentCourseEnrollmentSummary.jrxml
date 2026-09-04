@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DepartmentCourseEnrollmentSummary" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c0b4eb1-ba25-4f9d-9230-b51a658e9dad">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySqlUniversityDB"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+              d.department_name,
+              c.course_name,
+              COUNT(e.student_id) AS enrolled_students,
+              AVG(s.age) AS avg_student_age,
+              SUM(c.fee) AS total_course_fee
+            FROM enrollments e
+            JOIN courses c ON e.course_id = c.course_id
+            JOIN departments d ON c.department_id = d.department_id
+            JOIN students s ON e.student_id = s.student_id
+            GROUP BY d.department_name, c.course_name
+            ORDER BY d.department_name, enrolled_students DESC]]>
+	</queryString>
+	<field name="department_name" class="java.lang.String"/>
+	<field name="course_name" class="java.lang.String"/>
+	<field name="enrolled_students" class="java.lang.Long"/>
+	<field name="avg_student_age" class="java.lang.Double"/>
+	<field name="total_course_fee" class="java.math.BigDecimal"/>
+	<title>
+		<band height="70">
+			<staticText>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="50" backcolor="#0E5FC9" uuid="449c77cd-0de6-4d17-a081-44c7afa42628"/>
+				<box>
+					<topPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Department Course Enrollment Summary]]></text>
+			</staticText>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="0" y="40" width="555" height="18" uuid="0e22ab87-882b-4766-85d5-b90b3fc01cb1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Date: " + new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="25">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="150" height="25" backcolor="#A9D3F5" uuid="4cc695e5-9e76-4414-8261-66550e8efb6d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Department]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="150" y="0" width="150" height="25" backcolor="#A9D3F5" uuid="a177a85b-9093-451f-a3bc-e279c6d19063"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Course]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="300" y="0" width="120" height="25" backcolor="#A9D3F5" uuid="188618fd-b421-4b38-a3e3-c5285f674b92"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Students Enrolled]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="420" y="0" width="135" height="25" backcolor="#A9D3F5" uuid="b75136e8-8895-46cc-bb96-093ed77373ee"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Fee (LKR)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="0" width="150" height="20" uuid="a5096a01-23d2-415c-a75a-f5b6bf333e48"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{department_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="0" width="150" height="20" uuid="d6f6dbc5-2ffe-4726-835c-456623150af3"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{course_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="300" y="0" width="120" height="20" uuid="8cffe6b3-1571-4506-840a-a7a6a0e310fa"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{enrolled_students}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="420" y="0" width="135" height="20" uuid="fc4296b6-26bb-4f98-8cfe-a0ae8d41bfdd"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{total_course_fee}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="20" uuid="39db5788-cc4f-44e9-87e5-8035eea402c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
