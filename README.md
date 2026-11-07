@@ -1,5 +1,7 @@
 # University Management System
 
+![Logo](src/images/ums.png)
+
 A desktop application for managing core university operations — students, lecturers, courses, departments, and enrollments — built with **Java Swing** (MVC architecture) and a **MySQL** backend. Developed as a NetBeans project.
 
 ## Features
@@ -104,7 +106,9 @@ java -jar UniversityManagementSystem.jar
 |jfreechart / jcommon|Charting (used by JasperReports)|
 |commons-beanutils / commons-collections / commons-collections4 / commons-digester / commons-logging|JasperReports dependencies|
 
-## License
+## ✍️ Author
 
-No license specified. Add a `LICENSE` file if you intend to open-source this project.
+**Sithumini Anuhansi**
+
+*Software Engineering Undergraduate (NIBM)*
 
